@@ -126,6 +126,16 @@ function selectOption(optionElement, selectedOption) {
         child.removeEventListener('click', () => selectOption(child, child.textContent));
     });
     nextButton.classList.remove('hidden');
+    nextQuestion(); // Panggil fungsi nextQuestion setelah memilih jawaban
+}
+
+function nextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        showQuestion();
+    } else {
+        showResult();
+    }
 }
 
 function showResult() {
@@ -138,14 +148,7 @@ function showResult() {
     resultElement.style.animation = 'fadeIn 1s ease-in-out'; // Memicu animasi
 }
 
-nextButton.addEventListener('click', () => {
-    currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
-        showQuestion();
-    } else {
-        showResult();
-    }
-});
+nextButton.addEventListener('click', nextQuestion);
 
 restartButton.addEventListener('click', () => {
     currentQuestionIndex = 0;
